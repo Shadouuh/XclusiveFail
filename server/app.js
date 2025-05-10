@@ -1,29 +1,18 @@
-const express = require('express');
 const path = require('path');
+const { express } = require(path.join(__dirname, 'config', 'setup'));
 
 const app = express();
-const port = process.env.API_PORT || 5001;
-
-const createConnection = require(path.join(__dirname, 'config', 'conexBD'));
-
-let conex;
-async function init() {
-    conex = await createConnection();
-}
-init();
-
 app.use(express.json());
 
-const handleError = (res, message, err = null, status = 500) => {
-    console.error(message, err);
-    res.status(status).send({ message });
-};
-
-//rutas
+// Rutas
 app.use('/user', require(path.join(__dirname, 'routes', 'user')));
 
+// Testeo de api
 app.get('/ping', async (req, res) => {
     res.send('Pong');
 });
 
-app.listen(port, () => console.log(`Server escuchando en el puerto port!`));
+const port = process.env.API_PORT || 5001;
+app.listen(port, () => console.log(`Server escuchando en el puerto ${port}`));
+
+//despues podemos server los archivos de la build de vite para mostrarlos desde el mismo servidor

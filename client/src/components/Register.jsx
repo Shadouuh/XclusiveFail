@@ -1,15 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 import "./styles/Register.css";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    acceptTerms: false
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!formData.nombre || !formData.apellido || !formData.email || !formData.password) {
+      setError("Todos los campos son requeridos");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.post("/user/register", {
+        nick: `${formData.nombre} ${formData.apellido}`,
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (response.status === 200) {
+        navigate("/");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al registrarse");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="register-page">
       <div className="background-wrapper">
-        <span class="extra-blur"></span>
-        <span class="extra-blur-2"></span>
+        <span className="extra-blur"></span>
+        <span className="extra-blur-2"></span>
         <div className="register-container">
           <div className="register-form">
+            {error && <div className="error-message">{error}</div>}
+            <form onSubmit={handleSubmit}>
             <div className="logo">
               <h1>XclusiveGames</h1>
               <img src="../../assets/icon.png" alt="" />
@@ -22,7 +77,13 @@ export default function Register() {
                 <label>Nombre</label>
                 <div className="input-group">
                   <img src="../../assets/user.png" alt="" />
-                  <input type="text" placeholder="Nombre" />
+                  <input 
+                    type="text" 
+                    name="nombre"
+                    placeholder="Nombre" 
+                    value={formData.nombre}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
@@ -30,7 +91,13 @@ export default function Register() {
                 <label>Apellido</label>
                 <div className="input-group">
                   <img src="../../assets/user.png" alt="" />
-                  <input type="text" placeholder="Apellido" />
+                  <input 
+                    type="text" 
+                    name="apellido"
+                    placeholder="Apellido" 
+                    value={formData.apellido}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
             </div>
@@ -38,30 +105,56 @@ export default function Register() {
             <label>Email</label>
             <div className="input-group">
               <img src="../../assets/email.png" alt="" />
-              <input type="email" placeholder="Correo Electrónico" />
+              <input 
+                type="email" 
+                name="email"
+                placeholder="Correo Electrónico" 
+                value={formData.email}
+                onChange={handleChange}
+              />
             </div>
 
             <label>Contraseña</label>
             <div className="input-group">
               <img src="../../assets/lock.png" alt="" />
-              <input type="password" placeholder="Contraseña" />
+              <input 
+                type="password" 
+                name="password"
+                placeholder="Contraseña" 
+                value={formData.password}
+                onChange={handleChange}
+              />
             </div>
 
             <label>Confirmar Contraseña</label>
             <div className="input-group">
               <img src="../../assets/lock.png" alt="" />
-              <input type="password" placeholder="Confirmar Contraseña" />
+              <input 
+                type="password" 
+                name="confirmPassword"
+                placeholder="Confirmar Contraseña" 
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="form-options">
               <label className="custom-checkbox">
-                <input type="checkbox" />
+                <input 
+                  type="checkbox" 
+                  name="acceptTerms"
+                  checked={formData.acceptTerms}
+                  onChange={handleChange}
+                />
                 <span className="checkmark"></span>
                 Acepto los términos y condiciones
               </label>
             </div>
 
-            <button className="register-btn">Registrarse</button>
+            <button type="submit" className="register-btn" disabled={loading}>
+              {loading ? "Procesando..." : "Registrarse"}
+            </button>
+            </form>
 
             <div className="divider">
               <div className="divider-title">

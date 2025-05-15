@@ -9,14 +9,14 @@ async () => conex = await createConnection();
 
 router.post('/login', async (req, res) => {
 
-    const { userOrEmail, pass } = req.body;
+    const { nickOrEmail, password } = req.body;
 
     try {
 
         const [resultLogin] = await conex.execute(
 
-            "SELECT * FROM users WHERE (email = ? OR userName = ?) AND pass = ?",
-            [userOrEmail, userOrEmail, pass]
+            "SELECT * FROM login WHERE (email = ? OR nick = ?) AND password  = ?",
+            [nickOrEmail, nickOrEmail, password ]
 
         );
 
@@ -41,12 +41,12 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { email, pass, nick, name } = req.body;
+    const { email, password , nick } = req.body;
 
     try {
         await conex.execute(
-            "INSERT INTO users (email, pass, nick, name) VALUES (?, ?, ?, ?)",
-            [email, pass, nick, name]
+            "INSERT INTO login (email, password , nick) VALUES (?, ?, ?)",
+            [email, password , nick]
         );
 
         res.status(201).send({ message: 'Se Inserto correctamente', resultRegistro });

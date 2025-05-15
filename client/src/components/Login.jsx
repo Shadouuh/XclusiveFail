@@ -1,15 +1,61 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 import "./styles/Login.css";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    nickOrEmail: "",
+    password: "",
+    remember: false
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!formData.nickOrEmail || !formData.password) {
+      setError("Todos los campos son requeridos");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.post("/user/login", {
+        nickOrEmail: formData.nickOrEmail,
+        password: formData.password
+      });
+
+      if (response.status === 200) {
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="background-wrapper">
-        <span class="extra-blur"></span>
-        <span class="extra-blur-2"></span>
+        <span className="extra-blur"></span>
+        <span className="extra-blur-2"></span>
         <div className="login-container">
           <div className="login-form">
+            {error && <div className="error-message">{error}</div>}
+            <form onSubmit={handleSubmit}>
             <div className="logo">
               <h1>XclusiveGames</h1>
               <img src="../../assets/icon.png" alt="Logo" />
@@ -17,21 +63,38 @@ export default function Login() {
 
             <h2>Iniciar Sesión</h2>
 
-            <label>Email</label>
+            <label>Email o Usuario</label>
             <div className="input-group">
               <img src="../../assets/email.png" alt="Ícono Email" />
-              <input type="email" placeholder="Correo Electrónico" />
+              <input 
+                type="text" 
+                name="nickOrEmail"
+                placeholder="Correo Electrónico o Usuario" 
+                value={formData.nickOrEmail}
+                onChange={handleChange}
+              />
             </div>
 
             <label>Contraseña</label>
             <div className="input-group">
               <img src="../../assets/lock.png" alt="Ícono Contraseña" />
-              <input type="password" placeholder="Contraseña" />
+              <input 
+                type="password" 
+                name="password"
+                placeholder="Contraseña" 
+                value={formData.password}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="form-options">
               <label className="custom-checkbox">
-                <input type="checkbox" />
+                <input 
+                  type="checkbox" 
+                  name="remember"
+                  checked={formData.remember}
+                  onChange={handleChange}
+                />
                 <span className="checkmark"></span>
                 Recordarme
               </label>
@@ -39,7 +102,10 @@ export default function Login() {
               <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button className="login-btn">Iniciar sesión</button>
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? "Procesando..." : "Iniciar sesión"}
+            </button>
+            </form>
 
             <div className="divider">
               <div className="divider-title">

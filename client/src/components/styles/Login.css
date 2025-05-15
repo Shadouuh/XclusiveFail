@@ -55,6 +55,17 @@ body {
   color: white;
 }
 
+.error-message {
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #ff5555;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ff3333;
+  font-size: 14px;
+  text-align: center;
+}
+
 .login-form h2 {
   font-size: 22px;
   margin-bottom: 24px;

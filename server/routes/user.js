@@ -1,34 +1,52 @@
 const { createConnection, handleError, express } = require('./../config/setup');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const secretKey = 'tu_clave_secreta';
 
 let conex;
 //funcion asicrona para crear la conexion a la base de datos (sintaxix epiquisima)
 async () => conex = await createConnection();
 
 router.post('/login', async (req, res) => {
-    const { emailORUserName, pass } = req.body;
+
+    const { userOrEmail, pass } = req.body;
 
     try {
+
         const [resultLogin] = await conex.execute(
-            "SELECT * FROM usuarios WHERE (email = ? OR userName = ?) AND pass = ?",
-            [emailORUserName, emailORUserName, pass]
+
+            "SELECT * FROM users WHERE (email = ? OR userName = ?) AND pass = ?",
+            [userOrEmail, userOrEmail, pass]
+
         );
 
         if (resultLogin.length == 0) return handleError(res, 'Credenciales incorrectas', null, 401);
 
+        //Aca empazaria el jwt no le hagan caso despues lo termino
+        // const userJwt = resultLOgin[0];
+
+        // const token = jwt.sign({
+
+        //     id: userJwt.id
+
+        // });
+
         res.status(200).send({ message: 'Se logeo correctamente', resultLogin });
+
     } catch (err) {
+
         return handleError(res, 'Error al logearse', err);
+        
     }
 });
 
-router.post('/registro', async (req, res) => {
-    const { email, pass, userName, realName } = req.body;
+router.post('/register', async (req, res) => {
+    const { email, pass, nick, name } = req.body;
 
     try {
         await conex.execute(
-            "INSERT INTO usuarios (email, pass, userName, realName) VALUES (?, ?, ?, ?)",
-            [email, pass, userName, realName]
+            "INSERT INTO users (email, pass, nick, name) VALUES (?, ?, ?, ?)",
+            [email, pass, nick, name]
         );
 
         res.status(201).send({ message: 'Se Inserto correctamente', resultRegistro });

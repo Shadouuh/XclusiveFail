@@ -26,8 +26,11 @@ router.post('/insert/:table', async (req, res) => {
 
     try {
         const [columns] = await conex.query('DESC ' + table);
+
+        if (columns.length == 0) return handleError(res, 'No se encontraron columnas', null, 404);
+
         let columnFields = columns.map(col => col.Field);
-        let columnValues = columnFields.map(col => dates[col]);
+        let columnValues = columnFields.map(col => dates[col] === undefined ? null : dates[col]);
 
         columnFields.shift();
         columnValues.shift();
@@ -49,7 +52,10 @@ router.put('/update/:table/:id', async (req, res) => {
         const [columns] = await conex.execute('DESC ' + table);
         const primaryKey = columns.find(col => col.Key == 'PRI').Field;
         const columnFields = columns.map(col => col.Field).slice(1);
-        const columnValues = columnFields.map(col => dates[col]);
+
+        //puede ser que haya un problema, si no se pasa un campo este lo toma como null asi que termina poniendo de null a todos los campos
+        let columnValues = columnFields.map(col => dates[col] === undefined ? null : dates[col]);
+        
 
         const query = `UPDATE ${table} SET ${columnFields.join(' = ?, ')} = ? WHERE ${primaryKey} = ?`;
         await conex.execute(query, [...columnValues, id]);

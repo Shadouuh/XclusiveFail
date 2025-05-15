@@ -4,8 +4,7 @@ create table login(
     password varchar(255) NOT NULL,
     nick varchar(255) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP DEFAULT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )
 
 create table users(
@@ -15,7 +14,7 @@ create table users(
     bio text,
     age int,
     birthday date,
-    FOREIGN KEY (id_login) REFERENCES login(id_login), 
+    FOREIGN KEY (id_login) REFERENCES login(id_login)
 )
 
 create table pc(

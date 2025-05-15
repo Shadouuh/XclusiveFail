@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'tu_clave_secreta';
 
 let conex;
-//funcion asicrona para crear la conexion a la base de datos (sintaxix epiquisima)
-async () => conex = await createConnection();
+(async () => {
+    conex = await createConnection();
+})();
 
 router.post('/login', async (req, res) => {
 
@@ -41,15 +42,20 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { email, password , nick } = req.body;
+    const { email, password, nick } = req.body;
+
+    if (!email || !password || !nick) {
+        return handleError(res, 'Todos los campos son requeridos', null, 400);
+    }
 
     try {
-        await conex.execute(
-            "INSERT INTO login (email, password , nick) VALUES (?, ?, ?)",
-            [email, password , nick]
-        );
-
-        res.status(201).send({ message: 'Se Inserto correctamente', resultRegistro });
+        const query = "INSERT INTO login(email, password, nick) VALUES (?, ?, ?)";
+        const [resultRegistro] = await conex.execute(query, [email, password, nick]);
+        
+        res.status(201).send({ 
+            message: 'Usuario registrado correctamente', 
+            userId: resultRegistro.insertId 
+        });
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
             return handleError(res, 'El email y/o usuario ya se encuentran registrados.', null, 409);

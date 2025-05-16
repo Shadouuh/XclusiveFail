@@ -30,7 +30,6 @@ router.post('/login', async (req, res) => {
         //Aca se crea el token, y elegis que datos mandar(no ghace falta aclara pero por favor no manden la contraseña)
         const token = jwt.sign(
             {
-
                 id_login: userJwt.id_login,
                 nick: userJwt.nick,
                 email: userJwt.email,
@@ -58,7 +57,7 @@ router.post('/login', async (req, res) => {
         //console.log('Token recibido:', req.cookies.token);
 
 
-        res.status(200).send({ message: 'Se logeo correctamente', resultLogin });
+        res.status(200).send({ message: 'Se logeo correctamente', user: { ...userJwt, password: '[hidden]' }});
 
     } catch (err) {
 

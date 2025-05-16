@@ -1,37 +1,17 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
 import "./styles/Register.css";
+import React, { useState } from "react";
+import axios from "../api/axios";
+import useNotification from "../hooks/useNotification";
 
-export default function Register() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    acceptTerms: false
-  });
+export default function Register({ toggleForm, formData, handleChange }) {
+  const { notify } = useNotification();
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (!formData.nombre || !formData.apellido || !formData.email || !formData.password) {
-      setError("Todos los campos son requeridos");
-      return;
-    }
 
     if (formData.password !== formData.confirmPassword) {
       setError("Las contraseñas no coinciden");
@@ -40,16 +20,14 @@ export default function Register() {
 
     try {
       setLoading(true);
-      const response = await axios.post("/user/register", {
-        nick: `${formData.nombre} ${formData.apellido}`,
-        email: formData.email,
-        password: formData.password
-      });
+      const response = await axios.post("/user/register", formData);
 
-      if (response.status === 200) {
-        navigate("/");
+      if (response.status === 201) {
+        notify(response.data.message, "success");
+        toggleForm();
       }
     } catch (err) {
+      notify(err.response?.data?.message || "Error al iniciar sesión", 'error');
       setError(err.response?.data?.message || "Error al registrarse");
     } finally {
       setLoading(false);
@@ -65,95 +43,85 @@ export default function Register() {
           <div className="register-form">
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
-            <div className="logo">
-              <h1>XclusiveGames</h1>
-              <img src="../../assets/icon.png" alt="" />
-            </div>
+              <div className="logo">
+                <h1>XclusiveGames</h1>
+                <img src="../../assets/icon.png" alt="" />
+              </div>
 
-            <h2>Regístrate</h2>
+              <h2>Regístrate</h2>
 
-            <div className="contents-input">
-              <div className="input-block">
-                <label>Nombre</label>
-                <div className="input-group">
-                  <img src="../../assets/user.png" alt="" />
-                  <input 
-                    type="text" 
-                    name="nombre"
-                    placeholder="Nombre" 
-                    value={formData.nombre}
-                    onChange={handleChange}
-                  />
+              <div className="contents-input">
+                <div className="input-block">
+                  <label>Nick</label>
+                  <div className="input-group">
+                    <img src="../../assets/user.png" alt="" />
+                    <input
+                      type="text"
+                      name="nick"
+                      placeholder="Nick"
+                      value={formData.nick}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="input-block">
-                <label>Apellido</label>
-                <div className="input-group">
-                  <img src="../../assets/user.png" alt="" />
-                  <input 
-                    type="text" 
-                    name="apellido"
-                    placeholder="Apellido" 
-                    value={formData.apellido}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <label>Email</label>
-            <div className="input-group">
-              <img src="../../assets/email.png" alt="" />
-              <input 
-                type="email" 
-                name="email"
-                placeholder="Correo Electrónico" 
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <label>Contraseña</label>
-            <div className="input-group">
-              <img src="../../assets/lock.png" alt="" />
-              <input 
-                type="password" 
-                name="password"
-                placeholder="Contraseña" 
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </div>
-
-            <label>Confirmar Contraseña</label>
-            <div className="input-group">
-              <img src="../../assets/lock.png" alt="" />
-              <input 
-                type="password" 
-                name="confirmPassword"
-                placeholder="Confirmar Contraseña" 
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-options">
-              <label className="custom-checkbox">
-                <input 
-                  type="checkbox" 
-                  name="acceptTerms"
-                  checked={formData.acceptTerms}
+              <label>Email</label>
+              <div className="input-group">
+                <img src="../../assets/email.png" alt="" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Correo Electrónico"
+                  value={formData.email}
                   onChange={handleChange}
+                  required
                 />
-                <span className="checkmark"></span>
-                Acepto los términos y condiciones
-              </label>
-            </div>
+              </div>
 
-            <button type="submit" className="register-btn" disabled={loading}>
-              {loading ? "Procesando..." : "Registrarse"}
-            </button>
+              <label>Contraseña</label>
+              <div className="input-group">
+                <img src="../../assets/lock.png" alt="" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <label>Confirmar Contraseña</label>
+              <div className="input-group">
+                <img src="../../assets/lock.png" alt="" />
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirmar Contraseña"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-options">
+                <label className="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    name="acceptTerms"
+                    checked={formData.acceptTerms}
+                    onChange={handleChange}
+                  />
+                  <span className="checkmark"></span>
+                  Acepto los términos y condiciones
+                </label>
+              </div>
+
+              <button type="submit" className="register-btn" disabled={loading}>
+                {loading ? "Procesando..." : "Registrarse"}
+              </button>
             </form>
 
             <div className="divider">
@@ -180,7 +148,10 @@ export default function Register() {
             </div>
 
             <p className="login-link">
-              ¿Ya tienes una cuenta? <Link to="/">Inicia sesión</Link>
+              ¿Ya tienes una cuenta? 
+              <button onClick={toggleForm} className="link-button">
+                Inicia sesión
+              </button>
             </p>
           </div>
 

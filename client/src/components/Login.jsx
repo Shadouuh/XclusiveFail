@@ -1,46 +1,35 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
 import "./styles/Login.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import useNotification from "../hooks/useNotification";
 
-export default function Login() {
+export default function Login({ toggleForm, formData, handleChange }) {
+  const { notify } = useNotification();
+
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    nickOrEmail: "",
-    password: "",
-    remember: false
-  });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!formData.nickOrEmail || !formData.password) {
-      setError("Todos los campos son requeridos");
-      return;
-    }
-
     try {
       setLoading(true);
-      const response = await axios.post("/user/login", {
-        nickOrEmail: formData.nickOrEmail,
-        password: formData.password
-      });
+      const response = await axios.post("/user/login", formData);
 
       if (response.status === 200) {
+        const user = response.data.resultLogin;
+        window.localStorage.setItem("user", JSON.stringify(user));
+        //faltaria guardar el token
+
+        
+        notify(response.data.message, "success");
         navigate("/dashboard");
-      }
+      } 
     } catch (err) {
+      notify(err.response?.data?.message || "Error al iniciar sesión", 'error');
       setError(err.response?.data?.message || "Error al iniciar sesión");
     } finally {
       setLoading(false);
@@ -70,8 +59,9 @@ export default function Login() {
                 type="text" 
                 name="nickOrEmail"
                 placeholder="Correo Electrónico o Usuario" 
-                value={formData.nickOrEmail}
+                value={formData.nickOrEmail} 
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -84,6 +74,7 @@ export default function Login() {
                 placeholder="Contraseña" 
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -131,7 +122,10 @@ export default function Login() {
             </div>
 
             <p className="register-link">
-              ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+              ¿No tienes una cuenta? 
+              <button onClick={toggleForm} className="link-button">
+                Regístrate
+              </button>
             </p>
           </div>
 

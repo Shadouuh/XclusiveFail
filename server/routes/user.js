@@ -1,7 +1,7 @@
 const { createConnection, handleError, express } = require('./../config/setup');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const secretKey = process.env.SECRET_KEY;
+const secretKey = process.env.SECRET_KEY
 const { verificarToken } = require('../middlewares/auth');
 
 let conex;
@@ -11,13 +11,7 @@ init();
 
 
 router.post('/login', async (req, res) => {
-
     const { nickOrEmail, password } = req.body;
-
-    if (!nickOrEmail || !password) {
-        return res.status(400).json({ message: 'Faltan datos para iniciar sesión' });
-    }
-
 
     try {
 
@@ -37,7 +31,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign(
             {
 
-                id: userJwt.id_login,
+                id_login: userJwt.id_login,
                 nick: userJwt.nick,
                 email: userJwt.email,
             },
@@ -86,10 +80,6 @@ router.get('/perfil', verificarToken, async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const { email, password, nick } = req.body;
-
-    if (!email || !password || !nick) {
-        return handleError(res, 'Todos los campos son requeridos', null, 400);
-    }
 
     try {
         const query = "INSERT INTO login(email, password, nick) VALUES (?, ?, ?)";

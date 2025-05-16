@@ -5,9 +5,10 @@ const secretKey = process.env.SECRET_KEY;
 const { verificarToken } = require('../middlewares/auth');
 
 let conex;
-(async () => {
-    conex = await createConnection();
-})();
+//funcion asicrona para crear la conexion a la base de datos (sintaxix epiquisima)
+const init = async() => conex = await createConnection();
+init();
+
 
 router.post('/login', async (req, res) => {
 

@@ -6,7 +6,7 @@ async function createConnection() {
             host: "localhost",
             user: "root",
             password: "",
-            database: "xclusivegames",
+            database: "xclusive_games",
             port: "3306",
             waitForConnections: true,
             connectionLimit: 3,

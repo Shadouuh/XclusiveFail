@@ -1,3 +1,4 @@
+const { handleError } = require('../config/setup');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 
@@ -5,7 +6,7 @@ function verificarToken(req, res, next) {
   // Buscar la galletita
   const token = req.cookies.token;
 
-  if (!token) return res.status(401).json({ message: 'No autorizado, token faltante' });
+  if (!token) handleError(res, 'No se encontró el token', null, 401);
 
   //Verificar que el token no haya expirado con jwt.verify
   try {
@@ -16,9 +17,7 @@ function verificarToken(req, res, next) {
     next();
 
   } catch (err) {
-
-    return res.status(403).json({ message: 'Token inválido o expirado' });
-
+    return handleError(res, 'Token inválido o expirado', null, 403);
   }
 }
 

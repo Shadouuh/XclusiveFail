@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles/Dashboard.css";
 import useNotification from "../hooks/useNotification";
 import useConfirmation from "../hooks/useConfirmation";
 

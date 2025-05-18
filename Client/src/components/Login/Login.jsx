@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "../../api/axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
-import useNotification from "../hooks/useNotification";
+import useNotification from "../../hooks/useNotification";
 
 export default function Login({ toggleForm, formData, handleChange }) {
   const { notify } = useNotification();

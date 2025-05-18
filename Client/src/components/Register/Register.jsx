@@ -1,8 +1,8 @@
 
 import "./styles.css";
 import { useState } from "react";
-import axios from "../api/axios";
-import useNotification from "../hooks/useNotification";
+import axios from "../../api/axios";
+import useNotification from "../../hooks/useNotification";
 export default function Register({ toggleForm, formData, handleChange }) {
   const { notify } = useNotification();
   const [error, setError] = useState("");

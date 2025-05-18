@@ -1,4 +1,3 @@
-
 import "./styles.css";
 import { useState } from "react";
 import axios from "../../api/axios";
@@ -26,7 +25,7 @@ export default function Register({ toggleForm, formData, handleChange }) {
         toggleForm();
       }
     } catch (err) {
-      notify(err.response?.data?.message || "Error al iniciar sesión", 'error');
+      notify(err.response?.data?.message || "Error al iniciar sesión", "error");
       setError(err.response?.data?.message || "Error al registrarse");
     } finally {
       setLoading(false);
@@ -44,65 +43,69 @@ export default function Register({ toggleForm, formData, handleChange }) {
             <form onSubmit={handleSubmit}>
               <div className="logo">
                 <h1>XclusiveGames</h1>
-                <img src="../../assets/icon.png" alt="" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gamepad-icon lucide-gamepad"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg>
               </div>
 
               <h2>Regístrate</h2>
 
-              <div className="contents-input">
-                <div className="input-block">
-                  <label>Nick</label>
-                  <div className="input-group">
-                    <img src="../../assets/user.png" alt="" />
-                    <input
-                      type="text"
-                      name="nick"
-                      placeholder="Nick"
-                      value={formData.nick}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+              <div className="form-group">
+                <label>Nick</label>
+                <div className="input-group">
+                  <img src="../../assets/user.png" alt="" />
+                  <input
+                    type="text"
+                    name="nick"
+                    placeholder="Nick"
+                    value={formData.nick}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
               </div>
 
-              <label>Email</label>
-              <div className="input-group">
-                <img src="../../assets/email.png" alt="" />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Correo Electrónico"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
+              <div className="form-group">
+                <label>Email</label>
+                <div className="input-group">
+                  <img src="../../assets/email.png" alt="" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo Electrónico"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
 
-              <label>Contraseña</label>
-              <div className="input-group">
-                <img src="../../assets/lock.png" alt="" />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Contraseña"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+              <div className="form-group">
+                <label>Contraseña</label>
+                <div className="input-group">
+                  <img src="../../assets/lock.png" alt="" />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
 
-              <label>Confirmar Contraseña</label>
-              <div className="input-group">
-                <img src="../../assets/lock.png" alt="" />
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirmar Contraseña"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
+              <div className="form-group">
+                <label>Confirmar Contraseña</label>
+                <div className="input-group">
+                  <img src="../../assets/lock.png" alt="" />
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirmar Contraseña"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="form-options">
@@ -147,7 +150,7 @@ export default function Register({ toggleForm, formData, handleChange }) {
             </div>
 
             <p className="login-link">
-              ¿Ya tienes una cuenta? 
+              ¿Ya tienes una cuenta?
               <button onClick={toggleForm} className="link-button">
                 Inicia sesión
               </button>

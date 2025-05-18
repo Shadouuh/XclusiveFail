@@ -4,14 +4,12 @@
   box-sizing: border-box;
 }
 
-
 .login-page {
-  height: 60vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background-color: #0f1923;
   overflow: hidden;
 }
 
@@ -23,19 +21,10 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 28, 43, 1) 0%,
-    rgba(26, 38, 52, 1) 100%
-  );
+  background:linear-gradient(to bottom, rgba(15, 25, 35,1) 0%, rgba(10, 17, 24,.9) 100%) ;
   animation: fadeIn 0.8s ease-out;
   transform: translateY(0);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.login-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .login-form {
@@ -44,6 +33,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 16px;
   flex: 1;
   padding: 48px;
   color: white;
@@ -61,14 +51,14 @@
 }
 
 .login-form h2 {
-  font-size: 22px;
-  margin-bottom: 24px;
   position: relative;
   display: inline-block;
+  margin-bottom: 24px;
+  font-size: 22px;
 }
 
 .login-form .input-group {
-  background-color: #2d2d44;
+  background-color: #262335;
   color: white;
   border: 1px solid #2a3a4a;
   padding: 12px 16px;
@@ -87,7 +77,7 @@
   bottom: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(to right, #ff4b2b, #ff9100);
+  background: linear-gradient(to right, #1b1a57, #293a8a);
   transition: width 0.4s ease;
 }
 
@@ -96,47 +86,15 @@
 }
 
 .input-group:hover {
-  border-color: #ff4b2b;
-  box-shadow: 0 0 8px rgba(255, 75, 43, 0.4);
+  border-color: #1a2530;
+  box-shadow: 0 0 8px #1c2833;
   transform: translateY(-2px);
 }
 
 .input-group:focus-within {
-  border-color: #ff4b2b;
-  box-shadow: 0 0 12px rgba(255, 75, 43, 0.5);
+  border-color: #1c2833;
+  box-shadow: 0 0 12px #3d5a73;
   transform: translateY(-2px);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #ff4b2b;
-  margin-bottom: 16px;
-  animation: slideInDown 0.5s ease-out;
-}
-
-.logo h1 {
-  background: linear-gradient(to right, #ff3737, #ff6f00);
-  -webkit-background-clip: text;
-  color: transparent;
-  font-size: 28px;
-  font-weight: bold;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover h1 {
-  transform: scale(1.05);
-}
-
-.logo img {
-  width: 28px;
-  height: 22px;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover img {
-  transform: rotate(10deg);
 }
 
 .input-group {
@@ -176,6 +134,37 @@
   transform: translateX(5px);
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  margin-bottom: 16px;
+  animation: slideInDown 0.5s ease-out;
+}
+
+.logo h1 {
+  background: linear-gradient(to right, #ecf0f1, #bdc3c7);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 28px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover h1 {
+  transform: scale(1.05);
+}
+
+.logo svg {
+
+  transition: transform 0.3s ease;
+}
+
+.logo:hover svg{
+  transform: rotate(10deg);
+}
+
 .form-options {
   display: flex;
   justify-content: space-between;
@@ -187,7 +176,7 @@
 }
 
 .form-options a {
-  color: #ff4b2b;
+  color: #bdc3c7;
   text-decoration: none;
   transition: all 300ms ease-in;
   position: relative;
@@ -200,12 +189,12 @@
   height: 1px;
   bottom: -2px;
   left: 0;
-  background-color: #ff4b2b;
+  background-color: #34495e;
   transition: width 0.3s ease;
 }
 
 .form-options a:hover {
-  color: #e64428;
+  color: #34495e;
   transform: translateY(-1px);
 }
 
@@ -226,7 +215,7 @@
 }
 
 .custom-checkbox:hover {
-  color: #ff4b2b;
+  color: #34495e;
 }
 
 .custom-checkbox input {
@@ -241,20 +230,20 @@
   top: 1px;
   height: 18px;
   width: 18px;
-  background-color: #2d2d44;
-  border: 2px solid #ff4b2b;
+  background-color: #34495e;
+  border: 2px solid #3d5a73;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .custom-checkbox:hover .checkmark {
   transform: scale(1.1);
-  box-shadow: 0 0 8px rgba(255, 75, 43, 0.4);
+  box-shadow: 0 0 8px #3d5a73;
 }
 
 .custom-checkbox input:checked ~ .checkmark {
-  background-color: #ff4b2b;
-  box-shadow: 0 0 0 2px #ff4b2b inset;
+  background-color: #2c3e50;
+  box-shadow: 0 0 0 2px #3d5a73;
 }
 
 .custom-checkbox .checkmark:after {
@@ -262,17 +251,6 @@
   position: absolute;
   display: none;
   animation: checkmark 0.2s ease-in-out;
-}
-
-@keyframes checkmark {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) rotate(45deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(45deg);
-  }
 }
 
 .custom-checkbox input:checked ~ .checkmark:after {
@@ -290,7 +268,7 @@
 }
 
 .login-btn {
-  background: linear-gradient(to right, #ff4b2b, #ff9100);
+  background: linear-gradient(to right,#2c3e50, #1c2833);
   color: white;
   padding: 12px;
   font-weight: bold;
@@ -300,7 +278,7 @@
   cursor: pointer;
   margin-bottom: 32px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+  box-shadow: 0 4px 12px #3d5a73;
   position: relative;
   overflow: hidden;
   animation: fadeIn 0.8s ease-out;
@@ -326,8 +304,8 @@
 
 .login-btn:hover {
   transform: translateY(-3px);
-  background: linear-gradient(to right, #ff3a1f, #ff7a00);
-  box-shadow: 0 6px 15px rgba(255, 75, 43, 0.4);
+  background: linear-gradient(to right, #2c3e50, #1c2833);
+  box-shadow: 0 6px 15px #3d5a73;
 }
 
 .login-btn:hover::before {
@@ -336,7 +314,7 @@
 
 .login-btn:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+  box-shadow: 0 2px 8px #3d5a73;
 }
 
 .divider {
@@ -354,7 +332,6 @@
   position: relative;
   display: inline-block;
   padding: 0 10px;
-  background-color: rgba(26, 38, 52, 0.8);
   transition: transform 0.3s ease;
   z-index: 1;
 }
@@ -379,7 +356,7 @@
 }
 
 .icons:hover {
-  transform: scale(1.15) rotate(5deg);
+  transform: scale(1) rotate(5deg);
   background-color: #2a3a4d;
 }
 
@@ -441,9 +418,9 @@
 }
 
 .login-image {
-  flex: 1;
-  max-height: 100%;
   position: relative;
+  max-height: 100%;
+  flex: 1;
   overflow: hidden;
 }
 
@@ -480,7 +457,7 @@
 .background-wrapper::before {
   top: 0%;
   left: 45%;
-  background: #bf4f2d;
+  background: #6d3322;
 }
 
 .background-wrapper::after {
@@ -505,14 +482,26 @@
 .extra-blur {
   top: 80%;
   left: 40%;
-  background: #ad26da;
+  background: #34495e;
 }
 
 .extra-blur-2 {
   top: 80%;
   left: 10%;
-  background: #203c5d;
+  background: #1a2530;
 }
+
+@keyframes checkmark {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
 
 @keyframes fadeIn {
   from {
@@ -545,49 +534,11 @@
   }
 }
 
-.login-form label {
-  animation: fadeIn 0.5s ease-out;
-  animation-fill-mode: both;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.login-form label:hover {
-  transform: translateX(3px);
-  color: #ff4b2b;
-}
-
-.login-form > *:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.login-form > *:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.login-form > *:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.login-form > *:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.login-form > *:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.login-form > *:nth-child(6) {
-  animation-delay: 0.6s;
-}
-.login-form > *:nth-child(7) {
-  animation-delay: 0.7s;
-}
-.login-form > *:nth-child(8) {
-  animation-delay: 0.8s;
-}
-.login-form > *:nth-child(9) {
-  animation-delay: 0.9s;
-}
 
 @media (max-width: 768px) {
   .login-page {
     padding: 0;
-    height: 100vh;
+    height: 80vh;
     overflow: hidden;
   }
 
@@ -660,7 +611,7 @@
   .background-wrapper::before {
     top: 40%;
     left: 10%;
-    background: #ff8c61;
+    background: #6d3322;;
     width: 100px;
     height: 100px;
     filter: blur(80px);
@@ -680,7 +631,7 @@
     width: 100px;
     height: 100px;
     filter: blur(80px);
-    background: #ad26da;
+    background: #34495e;
   }
 
   .extra-blur-2 {
@@ -689,7 +640,7 @@
     width: 100px;
     height: 100px;
     filter: blur(80px);
-    background: #203c5d;
+    background: #1a2530;
   }
 }
 
@@ -769,16 +720,16 @@
   }
 
   .background-wrapper::before {
-    top: 40%;
-    left: 10%;
-    background: #ff8c61;
+    top: 3%;
+    left: 5%;
+    background: #6d3322;
     width: 80px;
     height: 80px;
     filter: blur(60px);
   }
 
   .background-wrapper::after {
-    top: 40%;
+    top: 3%;
     left: 80%;
     background: #d45aff;
     width: 80px;
@@ -786,21 +737,21 @@
     filter: blur(60px);
   }
   .extra-blur {
-    top: 80%;
-    left: 10%;
+    top: 100%;
+    left: 80%;
     width: 80px;
     height: 80px;
     filter: blur(60px);
-    background: #ad26da;
+    background: #34495e;
   }
 
   .extra-blur-2 {
-    top: 85%;
-    left: 50%;
+    top: 100%;
+    left: 5%;
     width: 80px;
     height: 80px;
     filter: blur(60px);
-    background: #203c5d;
+    background: #1a2530;
   }
 }
 

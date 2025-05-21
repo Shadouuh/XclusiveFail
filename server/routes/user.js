@@ -6,7 +6,7 @@ const { verificarToken } = require('../middlewares/auth');
 
 let conex;
 //funcion asicrona para crear la conexion a la base de datos (sintaxix epiquisima)
-const init = async() => conex = await createConnection();
+const init = async () => conex = await createConnection();
 init();
 
 
@@ -52,19 +52,20 @@ router.post('/login', async (req, res) => {
             httpOnly: true, //Solo podes acceder desde el servido
             secure: false, //Poner en true cuando este todo andando, false hace que se mande localmente ya sea http o https, true hace solo https
             maxAge: 1 * 60 * 60 * 1000, //Tiempo de expiracion de la cokie, mismo que el token por que si
-            sameSite: 'strict' //Solo se puede acceder desde eñ mismo dominio
+            sameSite: 'strict' //Solo se puede acceder desde el mismo dominio
 
         });
 
-        //Borrar una vez se termine todo
-        //Para ver el tocken generado
-        //console.log("TOKEN GENERADO:", token);
+        res.status(200).send({
+            message: 'Se logeo correctamente',
+            user: {
 
-        //Para ver si si se genera la gallletita 
-        //console.log('Token recibido:', req.cookies.token);
+                id: userJwt.id_login,
+                nick: userJwt.nick,
+                email: userJwt.email,
 
-
-        res.status(200).send({ message: 'Se logeo correctamente', resultLogin });
+            }
+        });
 
     } catch (err) {
 
@@ -73,18 +74,17 @@ router.post('/login', async (req, res) => {
     }
 });
 
-//Inportantee!!!!!
-//Por temas de seguridad todo endpoint que se realiza despeus del login debe estar protejido por el middleware par que no haya probelemas
-//Este es un ejemplo de como se usa
-router.get('/perfil', verificarToken, async (req, res) => {
+router.post('/logout', (req, res) => {
 
-    res.json({
-        message: 'Bienvenido a tu perfil',
-        user: req.user
-    });
+    res.clearCookie('token');
+
+    res.status(200).json({ message: 'Sesión cerrada correctamente' });
+
 });
 
+
 router.post('/register', async (req, res) => {
+
     const { email, password, nick } = req.body;
 
     if (!email || !password || !nick) {

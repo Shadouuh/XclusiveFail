@@ -15,6 +15,7 @@ app.use(express.json());
 // Rutas
 app.use('/user', require(path.join(__dirname, 'routes', 'user')));
 app.use('/api', require(path.join(__dirname, 'routes', 'crud')));
+app.use('/games', require(path.join(__dirname, 'routes', 'games')));
 
 // Testeo de api
 app.get('/ping', async (req, res) => {

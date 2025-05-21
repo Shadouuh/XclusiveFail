@@ -4,47 +4,29 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  position: relative;
-}
-.login-page {
-  min-height: 100vh;
+
+.register-page {
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background-color: #0f1923;
   overflow: hidden;
 }
 
-.login-container {
+.register-container {
   display: flex;
   width: 100%;
-  max-width: 1200px;
   max-height: 1024px;
+  max-width: 1200px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 28, 43, 1) 0%,
-    rgba(26, 38, 52, 1) 100%
-  );
-  animation: fadeIn 0.8s ease-out;
-  transform: translateY(0);
+  background:linear-gradient(to bottom, rgba(15, 25, 35,1) 0%, rgba(10, 17, 24,.9) 100%) ;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-.login-form {
+.register-form {
   width: 100%;
   min-height: calc(100vh - 60px);
   display: flex;
@@ -53,6 +35,7 @@ body {
   flex: 1;
   padding: 48px;
   color: white;
+  overflow-y: auto;
 }
 
 .error-message {
@@ -66,64 +49,24 @@ body {
   text-align: center;
 }
 
-.login-form h2 {
-  font-size: 22px;
-  margin-bottom: 24px;
+.register-form h2 {
   position: relative;
   display: inline-block;
-}
-
-.login-form .input-group {
-  background-color: #2d2d44;
-  color: white;
-  border: 1px solid #2a3a4a;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.input-group::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(to right, #ff4b2b, #ff9100);
-  transition: width 0.4s ease;
-}
-
-.input-group:focus-within::before {
-  width: 100%;
-}
-
-.input-group:hover {
-  border-color: #ff4b2b;
-  box-shadow: 0 0 8px rgba(255, 75, 43, 0.4);
-  transform: translateY(-2px);
-}
-
-.input-group:focus-within {
-  border-color: #ff4b2b;
-  box-shadow: 0 0 12px rgba(255, 75, 43, 0.5);
-  transform: translateY(-2px);
+  margin-bottom: 24px;
+  font-size: 22px;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #ff4b2b;
+  color: var(--text);
   margin-bottom: 16px;
   animation: slideInDown 0.5s ease-out;
 }
 
 .logo h1 {
-  background: linear-gradient(to right, #ff3737, #ff6f00);
+  background: linear-gradient(to right, #ecf0f1, #bdc3c7);
   -webkit-background-clip: text;
   color: transparent;
   font-size: 28px;
@@ -135,14 +78,73 @@ body {
   transform: scale(1.05);
 }
 
-.logo img {
-  width: 28px;
-  height: 22px;
+.logo svg {
+
   transition: transform 0.3s ease;
 }
 
-.logo:hover img {
+.logo:hover svg{
   transform: rotate(10deg);
+}
+
+.register-form .input-group {
+  background-color: #262335;
+  color: white;
+  border: 1px solid #2a3a4a;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+}
+
+.input-group input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background: transparent;
+}
+
+.input-group::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #1b1a57, #293a8a);
+  transition: width 0.4s ease;
+}
+
+.input-group:focus-within::before {
+  width: 100%;
+}
+
+.input-group:hover {
+  border-color: #1a2530;
+  box-shadow: 0 0 8px #1c2833;
+  transform: translateY(-2px);
+}
+.input-group:focus-within {
+  border-color: #1c2833;
+  box-shadow: 0 0 12px #3d5a73;
+  transform: translateY(-2px);
 }
 
 .input-group {
@@ -158,26 +160,18 @@ body {
   transform: scale(1.1);
 }
 
-.input-group input {
-  width: 100%;
-  background: none;
-  border: none;
-  color: white;
-  outline: none;
-  transition: all 0.2s ease;
-}
 
-.login-form input:focus {
+.register-form input:focus {
   border: none;
   outline: none;
 }
 
-.login-form input::placeholder {
+.register-form input::placeholder {
   color: #a0aec0;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.login-form input:focus::placeholder {
+.register-form input:focus::placeholder {
   opacity: 0.5;
   transform: translateX(5px);
 }
@@ -193,7 +187,7 @@ body {
 }
 
 .form-options a {
-  color: #ff4b2b;
+  color: #bdc3c7;
   text-decoration: none;
   transition: all 300ms ease-in;
   position: relative;
@@ -206,12 +200,12 @@ body {
   height: 1px;
   bottom: -2px;
   left: 0;
-  background-color: #ff4b2b;
+  background-color: #34495e;
   transition: width 0.3s ease;
 }
 
 .form-options a:hover {
-  color: #e64428;
+  color: #34495e;
   transform: translateY(-1px);
 }
 
@@ -232,7 +226,7 @@ body {
 }
 
 .custom-checkbox:hover {
-  color: #ff4b2b;
+  color: #34495e;
 }
 
 .custom-checkbox input {
@@ -247,20 +241,20 @@ body {
   top: 1px;
   height: 18px;
   width: 18px;
-  background-color: #2d2d44;
-  border: 2px solid #ff4b2b;
+  background-color: #34495e;
+  border: 2px solid #3d5a73;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .custom-checkbox:hover .checkmark {
   transform: scale(1.1);
-  box-shadow: 0 0 8px rgba(255, 75, 43, 0.4);
+  box-shadow: 0 0 8px #3d5a73;
 }
 
 .custom-checkbox input:checked ~ .checkmark {
-  background-color: #ff4b2b;
-  box-shadow: 0 0 0 2px #ff4b2b inset;
+  background-color: #2c3e50;
+  box-shadow: 0 0 0 2px #3d5a73;
 }
 
 .custom-checkbox .checkmark:after {
@@ -268,17 +262,6 @@ body {
   position: absolute;
   display: none;
   animation: checkmark 0.2s ease-in-out;
-}
-
-@keyframes checkmark {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) rotate(45deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(45deg);
-  }
 }
 
 .custom-checkbox input:checked ~ .checkmark:after {
@@ -295,8 +278,8 @@ body {
   transform: rotate(45deg);
 }
 
-.login-btn {
-  background: linear-gradient(to right, #ff4b2b, #ff9100);
+.register-btn {
+  background: linear-gradient(to right,#2c3e50, #1c2833);
   color: white;
   padding: 12px;
   font-weight: bold;
@@ -306,7 +289,7 @@ body {
   cursor: pointer;
   margin-bottom: 32px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+  box-shadow: 0 4px 12px #3d5a73;
   position: relative;
   overflow: hidden;
   animation: fadeIn 0.8s ease-out;
@@ -314,7 +297,7 @@ body {
   animation-fill-mode: both;
 }
 
-.login-btn::before {
+.register-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -330,19 +313,19 @@ body {
   transition: left 0.7s ease;
 }
 
-.login-btn:hover {
+.register-btn:hover {
   transform: translateY(-3px);
-  background: linear-gradient(to right, #ff3a1f, #ff7a00);
-  box-shadow: 0 6px 15px rgba(255, 75, 43, 0.4);
+  background: linear-gradient(to right, #2c3e50, #1c2833);
+  box-shadow: 0 6px 15px #3d5a73;
 }
 
-.login-btn:hover::before {
+.register-btn:hover::before {
   left: 100%;
 }
 
-.login-btn:active {
+.register-btn:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+  box-shadow: 0 2px 8px #3d5a73;
 }
 
 .divider {
@@ -361,8 +344,8 @@ body {
   display: inline-block;
   padding: 0 10px;
   background-color: rgba(26, 38, 52, 0.8);
-  transition: transform 0.3s ease;
   z-index: 1;
+  transition: transform 0.3s ease;
 }
 
 .social-icons {
@@ -385,7 +368,7 @@ body {
 }
 
 .icons:hover {
-  transform: scale(1.15) rotate(5deg);
+  transform: scale(1.15);
   background-color: #2a3a4d;
 }
 
@@ -408,7 +391,7 @@ body {
   transform: scale(1.1);
 }
 
-.register-link {
+.login-link {
   text-align: center;
   font-size: 14px;
   color: #aaa;
@@ -418,7 +401,7 @@ body {
   animation-fill-mode: both;
 }
 
-.register-link a {
+.login-link a {
   color: #ff4b2b;
   font-weight: bold;
   text-decoration: none;
@@ -426,7 +409,7 @@ body {
   position: relative;
 }
 
-.register-link a::after {
+.login-link a::after {
   content: "";
   position: absolute;
   width: 0;
@@ -437,30 +420,30 @@ body {
   transition: width 0.3s ease;
 }
 
-.register-link a:hover {
+.login-link a:hover {
   color: #e64428;
   transform: translateY(-1px);
 }
 
-.register-link a:hover::after {
+.login-link a:hover::after {
   width: 100%;
 }
 
-.login-image {
+.register-image {
   flex: 1;
   max-height: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.login-image img {
+.register-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.login-image:hover img {
+.register-image:hover img {
   transform: scale(1.03);
 }
 
@@ -486,7 +469,7 @@ body {
 .background-wrapper::before {
   top: 0%;
   left: 45%;
-  background: #bf4f2d;
+  background: #6d3322;
 }
 
 .background-wrapper::after {
@@ -511,13 +494,25 @@ body {
 .extra-blur {
   top: 80%;
   left: 40%;
-  background: #ad26da;
+  background: #34495e;
 }
 
 .extra-blur-2 {
   top: 80%;
   left: 10%;
-  background: #203c5d;
+  background: #1a2530 ;
+}
+
+
+@keyframes checkmark {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
 }
 
 @keyframes fadeIn {
@@ -551,71 +546,33 @@ body {
   }
 }
 
-.login-form label {
-  animation: fadeIn 0.5s ease-out;
-  animation-fill-mode: both;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.login-form label:hover {
-  transform: translateX(3px);
-  color: #ff4b2b;
-}
-
-.login-form > *:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.login-form > *:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.login-form > *:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.login-form > *:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.login-form > *:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.login-form > *:nth-child(6) {
-  animation-delay: 0.6s;
-}
-.login-form > *:nth-child(7) {
-  animation-delay: 0.7s;
-}
-.login-form > *:nth-child(8) {
-  animation-delay: 0.8s;
-}
-.login-form > *:nth-child(9) {
-  animation-delay: 0.9s;
-}
 
 @media (max-width: 768px) {
-  .login-page {
+  .register-page {
     padding: 0;
     height: 100vh;
     overflow: hidden;
   }
 
-  .login-container {
-    width: 100%;
-    display: flex;
+  .register-container {
     flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
     border-radius: 0;
     overflow: hidden;
   }
 
-  .login-form {
-    width: 100%;
+  .register-form {
+    padding: 15px;
     flex: 1;
-    padding: 12px;
-    order: 2;
     overflow-y: auto;
+    order: 2;
   }
 
-  .login-image {
+  .register-image {
     order: 1;
-    max-height: 30vh;
+    max-height: 25vh;
     flex-shrink: 0;
   }
 
@@ -624,11 +581,11 @@ body {
   }
 
   .logo img {
-    width: 22px;
-    height: 16px;
+    width: 24px;
+    height: 18px;
   }
 
-  .login-form h2 {
+  .register-form h2 {
     font-size: 20px;
     margin-top: 10px;
   }
@@ -638,11 +595,22 @@ body {
     width: 100%;
   }
 
+  .contents-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .input-block {
+    flex: 1 1 50%;
+    min-width: 140px;
+  }
+
   .form-options {
     margin-bottom: 20px;
   }
 
-  .login-btn {
+  .register-btn {
     margin-bottom: 20px;
   }
 
@@ -659,14 +627,15 @@ body {
     height: 36px;
   }
 
-  .register-link {
+  .login-link {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   .background-wrapper::before {
     top: 40%;
     left: 10%;
-    background: #ff8c61;
+    background: #6d3322;;
     width: 100px;
     height: 100px;
     filter: blur(80px);
@@ -686,7 +655,7 @@ body {
     width: 100px;
     height: 100px;
     filter: blur(80px);
-    background: #ad26da;
+    background: #34495e;
   }
 
   .extra-blur-2 {
@@ -695,31 +664,43 @@ body {
     width: 100px;
     height: 100px;
     filter: blur(80px);
-    background: #203c5d;
+    background: #1a2530;
   }
 }
 
-@media (max-width: 480px) {
-  .login-container {
-    min-height: 100vh;
-    flex-direction: column;
+@media screen and (max-width: 480px) {
+  .register-form {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    box-sizing: border-box; 
+  }
+
+  .register-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .divider {
+    margin: 10px 0;
+  }
+
+  .login-link {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .register-container {
     background: #0f1923;
   }
 
-  .login-image {
-    max-height: 30vh;
-  }
-
-  .login-form {
+  .register-image {
+    max-height: 20vh;
     width: 100%;
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
+    object-fit: contain;
   }
 
-  .login-image {
-    max-height: 30vh;
-    flex-shrink: 0;
+  .logo {
+    margin-bottom: 10px;
   }
 
   .logo h1 {
@@ -727,31 +708,40 @@ body {
   }
 
   .logo img {
-    width: 16px;
-    height: 10px;
+    width: 50px; 
+    height: 50px;
+    object-fit: contain; 
   }
 
-  .login-form h2 {
+  .register-form h2 {
     font-size: 18px;
+    margin-top: 20px;
   }
 
   .input-group {
-    padding: 10px 12px;
-    margin-bottom: 12px;
+    min-height: 48px;
+  }
+
+  .contents-input {
+    flex-direction: column;
+  }
+
+  .input-block {
+    width: 100%;
+  }
+
+  .input-block .input-group {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .form-options {
     font-size: 12px;
   }
 
-  .login-btn {
+  .register-btn {
     padding: 10px;
     font-size: 14px;
-    margin-bottom: 15px;
-  }
-
-  .divider {
-    margin: 10px 0;
   }
 
   .divider-title h5 {
@@ -768,23 +758,21 @@ body {
     height: 20px;
   }
 
-  .register-link {
+  .login-link {
     font-size: 12px;
-    margin-top: 15px;
-    margin-bottom: 10px;
   }
 
   .background-wrapper::before {
-    top: 40%;
-    left: 10%;
-    background: #ff8c61;
+    top: 3%;
+    left: 5%;
+    background: #6d3322;
     width: 80px;
     height: 80px;
     filter: blur(60px);
   }
 
   .background-wrapper::after {
-    top: 40%;
+    top: 3%;
     left: 80%;
     background: #d45aff;
     width: 80px;
@@ -792,43 +780,54 @@ body {
     filter: blur(60px);
   }
   .extra-blur {
-    top: 80%;
-    left: 10%;
+    top: 100%;
+    left: 80%;
     width: 80px;
     height: 80px;
     filter: blur(60px);
-    background: #ad26da;
+    background: #34495e;
   }
 
   .extra-blur-2 {
-    top: 85%;
-    left: 50%;
+    top: 100%;
+    left: 5%;
     width: 80px;
     height: 80px;
     filter: blur(60px);
-    background: #203c5d;
+    background: #1a2530;
   }
 }
 
+
+
 @media (max-height: 600px) {
-  .login-image {
+  .register-image {
     max-height: 20vh;
   }
 
-  .login-form {
-    padding: 10px 15px;
+  .register-form {
+    padding: 8px 12px;
+  }
+
+  .register-form h2 {
+    margin-bottom: 10px;
+    font-size: 16px;
   }
 
   .input-group {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     padding: 6px 10px;
+  }
+
+  .contents-input {
+    margin-bottom: 6px;
   }
 
   .form-options {
     margin-bottom: 10px;
   }
 
-  .login-btn {
+  .register-btn {
     margin-bottom: 10px;
     padding: 8px;
   }
@@ -837,7 +836,47 @@ body {
     margin: 8px 0;
   }
 
-  .register-link {
+  .login-link {
     margin-top: 10px;
+  }
+
+  .register-form label {
+    font-size: 12px;
+  }
+  .register-image {
+    max-height: 25vh;
+  }
+
+  .register-form {
+    padding: 10px 15px;
+  }
+
+  .register-form h2 {
+    margin-bottom: 15px;
+  }
+
+  .input-group {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+  }
+
+  .contents-input {
+    margin-bottom: 10px;
+  }
+
+  .form-options {
+    margin-bottom: 15px;
+  }
+
+  .register-btn {
+    margin-bottom: 15px;
+  }
+
+  .divider {
+    margin: 10px 0;
+  }
+
+  .login-link {
+    margin-top: 15px;
   }
 }
